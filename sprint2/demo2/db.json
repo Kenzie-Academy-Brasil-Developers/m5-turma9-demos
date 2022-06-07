@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "person1",
+    "cpf": "1111",
+    "birthdate": "03/03/1993",
+    "instruments": [
+      "Violao"
+    ],
+    "created_at": "07/06/2022 10:22:56.095156"
+  },
+  {
+    "id": 2,
+    "name": "person2",
+    "cpf": "2222",
+    "birthdate": "17/03/1995",
+    "instruments": [
+      "Violao"
+    ],
+    "created_at": "07/06/2022 10:22:56.095169"
+  },
+  {
+    "id": 3,
+    "name": "person3",
+    "cpf": "3333",
+    "birthdate": "10/06/1993",
+    "instruments": [
+      "Violao"
+    ],
+    "created_at": "07/06/2022 10:22:56.095174"
+  },
+  {
+    "id": 1,
+    "name": "person1",
+    "cpf": "1111",
+    "birthdate": "03/03/1993",
+    "instruments": [
+      "Violao"
+    ],
+    "created_at": "07/06/2022 10:23:07.745409"
+  },
+  {
+    "id": 2,
+    "name": "person2",
+    "cpf": "2222",
+    "birthdate": "17/03/1995",
+    "instruments": [
+      "Violao"
+    ],
+    "created_at": "07/06/2022 10:23:07.745424"
+  },
+  {
+    "id": 3,
+    "name": "person3",
+    "cpf": "3333",
+    "birthdate": "10/06/1993",
+    "instruments": [
+      "Violao"
+    ],
+    "created_at": "07/06/2022 10:23:07.745428"
+  }
+]
