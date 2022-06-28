@@ -27,6 +27,7 @@ class ListCreateParkingLotView(SerializerByMethodMixin, generics.ListCreateAPIVi
     # serializer_class = DetailParkingLotSerializer
 
     # Utilizando o SerializerByMethodMixin, sobrescrevemos da mesma forma o get_serializer_class
+    # que poderiamos ter sobrescrito aqui na view, mas consiguimos reaproveita-lo em outras views
     # def get_serializer_class(self, *args, **kwargs):
     #     return self.serializer_map.get(self.request.method, self.serializer_class)
 
