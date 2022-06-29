@@ -10,7 +10,7 @@ class ListParkingLotSerializer(serializers.ModelSerializer):
     class Meta:
         model = ParkingLot
         # []
-        fields = ["id", "name", "owner", "floors"]
+        fields = ["id", "name", "floors", "owner"]
         # read_only_fields = ["owner"]
         # depth = 1
 
