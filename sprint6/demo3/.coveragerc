@@ -1,0 +1,8 @@
+[run]
+source = .
+omit =
+    venv/*
+    project/*
+
+[report]
+show_missing = True
