@@ -1,0 +1,563 @@
+openapi: 3.0.3
+info:
+  title: Parking Lot
+  version: '1.0'
+paths:
+  /api/login/:
+    post:
+      operationId: login_create
+      tags:
+      - login
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+  /api/parking-lots/:
+    get:
+      operationId: parking_lots_list
+      tags:
+      - parking-lots
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListParkingLot'
+          description: ''
+    post:
+      operationId: parking_lots_create
+      tags:
+      - parking-lots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetailParkingLot'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DetailParkingLot'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DetailParkingLot'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailParkingLot'
+          description: ''
+  /api/parking-lots/{id}/:
+    get:
+      operationId: parking_lots_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this parking lot.
+        required: true
+      tags:
+      - parking-lots
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailParkingLot'
+          description: ''
+    put:
+      operationId: parking_lots_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this parking lot.
+        required: true
+      tags:
+      - parking-lots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetailParkingLot'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DetailParkingLot'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DetailParkingLot'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailParkingLot'
+          description: ''
+    patch:
+      operationId: parking_lots_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this parking lot.
+        required: true
+      tags:
+      - parking-lots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDetailParkingLot'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDetailParkingLot'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDetailParkingLot'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailParkingLot'
+          description: ''
+    delete:
+      operationId: parking_lots_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this parking lot.
+        required: true
+      tags:
+      - parking-lots
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/parking-lots/{id}/floors/:
+    get:
+      operationId: parking_lots_floors_list
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - parking-lots
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Floor'
+          description: ''
+    post:
+      operationId: parking_lots_floors_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - parking-lots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Floor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Floor'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Floor'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Floor'
+          description: ''
+  /api/parking-lots/{pl_id}/floors/{floor_id}/vehicles/:
+    get:
+      operationId: parking_lots_floors_vehicles_list
+      parameters:
+      - in: path
+        name: floor_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: pl_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - parking-lots
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vehicle'
+          description: ''
+    post:
+      operationId: parking_lots_floors_vehicles_create
+      parameters:
+      - in: path
+        name: floor_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: pl_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - parking-lots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vehicle'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Vehicle'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Vehicle'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+          description: ''
+  /api/register/:
+    post:
+      operationId: register_create
+      tags:
+      - register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Account'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Account'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: ''
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        date_joined:
+          type: string
+          format: date-time
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+      required:
+      - id
+      - password
+      - username
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    DetailParkingLot:
+      type: object
+      description: |-
+        Lista informações detalhadas sobre o estacionamento
+        ```
+        {
+            "id": 1,
+            "name": "Estacionamento Hot Wheels",
+            "floors": [
+                {
+                    "id": 1,
+                    "name": "floor 3",
+                    "spot_priority": 2
+                }
+            ],
+            "owner": {
+                "id": 1,
+                "username": "chrystian",
+                "is_superuser": true,
+                "is_staff": true,
+                "date_joined": "2022-06-28T12:33:11.529660Z"
+            }
+        }
+        ```
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        floors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Floor'
+          readOnly: true
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/Account'
+          readOnly: true
+      required:
+      - floors
+      - id
+      - name
+      - owner
+    Floor:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        spot_priority:
+          type: integer
+        car_spots:
+          type: integer
+          writeOnly: true
+        motorcycle_spots:
+          type: integer
+          writeOnly: true
+        available_spots:
+          type: string
+          readOnly: true
+      required:
+      - available_spots
+      - car_spots
+      - id
+      - motorcycle_spots
+      - name
+      - spot_priority
+    ListParkingLot:
+      type: object
+      description: |-
+        Lista informações gerais sobre o estacionamento
+        ```
+        {
+            "id": 1,
+            "name": "Estacionamento Hot Wheels",
+            "floor_count": 4,
+            "owner": 1
+        }
+        ```
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        floor_count:
+          type: integer
+          readOnly: true
+        owner:
+          type: integer
+      required:
+      - floor_count
+      - id
+      - name
+      - owner
+    PatchedDetailParkingLot:
+      type: object
+      description: |-
+        Lista informações detalhadas sobre o estacionamento
+        ```
+        {
+            "id": 1,
+            "name": "Estacionamento Hot Wheels",
+            "floors": [
+                {
+                    "id": 1,
+                    "name": "floor 3",
+                    "spot_priority": 2
+                }
+            ],
+            "owner": {
+                "id": 1,
+                "username": "chrystian",
+                "is_superuser": true,
+                "is_staff": true,
+                "date_joined": "2022-06-28T12:33:11.529660Z"
+            }
+        }
+        ```
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        floors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Floor'
+          readOnly: true
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/Account'
+          readOnly: true
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        license_plate:
+          type: string
+          maxLength: 10
+        vehicle_type:
+          $ref: '#/components/schemas/VehicleTypeEnum'
+        arrived_at:
+          type: string
+          format: date-time
+          readOnly: true
+        amount_paid:
+          type: integer
+          nullable: true
+        paid_at:
+          type: string
+          format: date-time
+          nullable: true
+        spot:
+          type: integer
+          nullable: true
+      required:
+      - arrived_at
+      - id
+      - license_plate
+      - vehicle_type
+    VehicleTypeEnum:
+      enum:
+      - car
+      - motorcycle
+      type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
